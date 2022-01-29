@@ -21,7 +21,6 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = {"id"})
 @Table(name = "tb_user")
