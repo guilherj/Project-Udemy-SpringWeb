@@ -10,16 +10,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Data
 @NoArgsConstructor
 @EqualsAndHashCode(of = {"id"})
 @Table(name = "tb_category")
@@ -28,25 +27,19 @@ public class Category implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	@Getter private Long id;
 	
-	private String name;
+	@Getter @Setter private String name;
 	
 	// Anotação para mapear a coleção na outra classe do relacionamento muitos para muitos
 	@ManyToMany(mappedBy = "categories")
 	@JsonIgnore
-	private Set<Product> products = new HashSet<>();
+	@Getter private Set<Product> products = new HashSet<>();
 
 	public Category(Long id, String name) {
 		this.id = id;
 		this.name = name;
 	}
-
-	public Set<Product> getProducts() {
-		return products;
-	}
-	
-	
 	
 	
 }

@@ -13,12 +13,12 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Data
 @NoArgsConstructor
 @EqualsAndHashCode(of = {"id"})
 @Table(name = "tb_product")
@@ -27,15 +27,16 @@ public class Product implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	@Getter private Long id;
 	
-	private String name;
+	@Getter @Setter private String name;
 	
-	private String description;
+	@Getter @Setter private String description;
 	
-	private Double price;
+	@Getter @Setter private Double price;
 	
-	private String imgUrl;
+	@Getter @Setter private String imgUrl;
+	
 	
 	/*Toda essa anotação do @JoinTable é usada para mapear relacionamentos muitos para muitos,
 	 * primeiro define o nome da nova tabela que vai ser criada, depois define
@@ -45,10 +46,9 @@ public class Product implements Serializable {
 	 * o mapeamento dessa anotação (ver esse mapeamento na classe Category)
 	 * 
 	 */
-	
 	@ManyToMany
 	@JoinTable(name = "tb_product_category", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
-	private Set<Category> categories = new HashSet<>();
+	@Getter private Set<Category> categories = new HashSet<>();
 
 	public Product(Long id, String name, String description, Double price, String imgUrl) {
 		this.id = id;
@@ -57,15 +57,5 @@ public class Product implements Serializable {
 		this.price = price;
 		this.imgUrl = imgUrl;
 	}
-
-	public Set<Category> getCategories() {
-		return categories;
-	}
 	
-	
-	
-	
-	
-	
-
 }
